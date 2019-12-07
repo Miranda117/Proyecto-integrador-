@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 from airportDP import *
 
+
 class User_op :
     def menu (self):
         print ("choose the option of your choice \n\r\t1.- Generate a report\n\r\t2.-Add data\n\r\t3.-Chage data")
         option=int(input())
         if option ==1 :
-            a=User_op()
-            a.dateInfo()                   
+            # COLOca LA CLASE 
+            pass    
+        if option==2:
+            pass
+
         if option==3 :
             print ("\n\r\t1.-Correct pilot data\n\r\t2.-Correcta attendant\n\r\t3.-Correct travellers data\n\r\t4.-Correct passengers data\n\r\t5.-Correct flights data") 
             op=int(input())
             if op ==1:
-                passport=str(input("Enter the pilot's passport: "))
-                marital_status=str(input("Enter the new marital status: "))
-                correct= ModificarDatos ()
-                correct.modify_pilot_data(passport, marital_status)
+                op_p=Options_to_modify()
+                op_p.modify_pilot_op()
             elif op==2:
-                passport_at=str(input("Enter the attendant's passport: "))
-                new_marital=str (input("Enter the new marital status: "))
-                correct_at= ModificarDatos()
-                dic_modificado= correct_at.modify_attendants(passport_at,new_marital)
+                opt=Options_to_modify()
+                opt.modify_attendants_op()
             elif op==3:
                 passport_tra=str(input("Enter the traveller's passport: "))
                 civil_tra=str (input("Enter the new civil status: "))
@@ -51,8 +51,10 @@ class User_op :
                 fligth_fr=ModificarDatos()
                 fligth_fr.modify_flight= (id_op,plate,seat,track_track,attendants_fligth,pilot_fligth,copilot)
 
-        if op == 4:
+        if option == 4:
             archivo=open("data/attendants.csv", "w+")
+            a=Options_to_modify()
+            dic_modificado=a.modify_attendants_op()
             for m in dic_modificado.keys():
                 archivo.write(dic_modificado[m].passport )
                 archivo.write(",")
@@ -80,3 +82,18 @@ class User_op :
         print("Ingrese hora para generar reporte (HHMM): ")
         hhmmTime = int(input())
         return hhmmTime
+class Options_to_modify:
+    def modify_attendants_op(self):
+        passport_at=str(input("Enter the attendant's passport: "))
+        new_marital=str (input("Enter the new marital status: "))
+        correct_at= ModificarDatos()
+        dic_modificado= correct_at.modify_attendants(passport_at,new_marital)
+        return dic_modificado
+    def modify_pilot_op(self):
+        passport=str(input("Enter the pilot's passport: "))
+        marital_status=str(input("Enter the new marital status: "))
+        correct= ModificarDatos ()
+        pilot_dic=correct.modify_pilot_data(passport, marital_status) 
+        return pilot_dic
+ 
+

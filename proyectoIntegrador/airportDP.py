@@ -386,6 +386,7 @@ class Gates_check:#
 	def cBusy_list(self):
 
 		return bGate_list
+
 class ModificarDatos:
 	def modify_attendants(self,_passport_t,_marital_status):
 		modification_for_attendants = AirportAD().read_attendants_file()

@@ -61,23 +61,8 @@ class Catch_data:
 		flight_file.write(chain_info)
 		flight_file.close()
 
-	def new_flight(self):
+	def new_flight(self,id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants):
 		nFlight={}
-		id=str(input("Write id to add(AA###): "))
-		plate=str(input("Write plate to add: "))
-		origin = str(input("Write origin to add(city or place - COUNTRY): "))
-		destiny = str(input("Write destiny to add(city or place - COUNTRY): "))
-		departure = str(input("Write departure to add(######_####_Continent/City): "))
-		arriving = str(input("Write arriving to add(######_####_Continent/City): "))
-		status = str(input("\nboarded\nboarding\nin transit\nlanded\nlanding\nwaiting\nWrite status to add: "))
-		departure_gate = str(input("Write departure gate to add(A# or A##): "))
-		take_off_track = str(input("Write take off track to add(#): "))
-		arriving_gate = str(input("Write arriving gate to add(A# or A##): "))
-		landing_track = str(input("Write landing track to add(#): "))
-		pilot = str(input("Write pilot to add(AA####): "))
-		copilot = str(input("Write copilot to add(AA####): "))
-		attendants = str(input("Write attendants to add(AA####;AA####...): "))
-		Catch_data().document_flight(id, plate, origin, destiny, departure, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
 		n_flight= Flights(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
 		nFlight[id+plate]=n_flight
 		return nFlight
@@ -89,16 +74,8 @@ class Catch_data:
 		traveller_file.write(chain_info)
 		traveller_file.close()
 
-	def new_traveller(self):
+	def new_traveller(self,passport, forename, surname, date_of_birth, country, gender, marital_status):
 		nTraveller={}
-		passport=str(input("Write passport to add(AA####): "))
-		forename = str(input("Write forename to add: "))
-		surname = str(input("Write surname to add: "))
-		date_of_birth = str(input("Write date of birth to add(YYMMDD): "))
-		country = str(input("Write country to add: "))
-		gender = str(input("Write gender to add(M ,F, NA): "))
-		marital_status = str(input("Write marital status to add(Single, Married, Widowed, Divorced): "))
-		
 		n_traveller=Travellers(passport, forename, surname, date_of_birth, country, gender, marital_status)
 		nTraveller[passport]=n_traveller
 		return nTraveller
@@ -110,14 +87,8 @@ class Catch_data:
 		passenger_file.write(chain_info)
 		passenger_file.close()
 
-	def new_passenger(self):
+	def new_passenger(self,flight, passport, flight_class, seat, location):
 		nPassenger={}
-		flight=str(input("Write flight to add(AA###): "))
-		passport = str(input("Write passport to add(AA####): "))
-		flight_class = str(input("Write class to add: "))
-		seat = str(input("Write seat to add(##A): "))
-		location = str(input("Write location to add(check-in, security, boarded): "))
-
 		n_passenger=Passengers(flight, passport, flight_class, seat, location)
 		nPassenger[flight+passport]=n_passenger
 		#pos=AirportAD().read_passengers_file().values()
@@ -135,21 +106,21 @@ class Add_data:
 		self.existent=AirportAD()
 		self.new=Catch_data()
 	
-	def add_passenger(self):
+	def add_passenger(self,flight, passport, flight_class, seat, location):
 		existent=self.existent.read_passengers_file()
-		new=self.new.new_passenger()
+		new=self.new.new_passenger(flight, passport, flight_class, seat, location)
 		all_passengers=ChainMap(existent, new)
 		return all_passengers
 
-	def add_traveller(self):
+	def add_traveller(self,passport, forename, surname, date_of_birth, country, gender, marital_status):
 		existent=self.existent.read_travellers_file()
-		new=self.new.new_traveller()
+		new=self.new.new_traveller(passport, forename, surname, date_of_birth, country, gender, marital_status)
 		all_travellers=ChainMap(existent, new)
 		return all_travellers
 
-	def add_flight(self):
+	def add_flight(self,id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants):
 		existent=self.existent.read_flights_file()
-		new=self.new.new_flight()
+		new=self.new.new_flight(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
 		all_flights=ChainMap(existent, new)
 		return all_flights
 

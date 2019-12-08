@@ -160,4 +160,3 @@ class Options_to_modify:
         correct= ModificarDatos ()
         pilot_dic=correct.modify_pilot_data(passport, marital_status) 
         return pilot_dic
-

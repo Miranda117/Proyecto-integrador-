@@ -71,3 +71,4 @@ class User_op :
         print("Ingrese hora para generar reporte (HHMM): ")
         hhmmTime = int(input())
         return hhmmTime
+ 

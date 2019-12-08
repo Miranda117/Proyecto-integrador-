@@ -522,7 +522,7 @@ class Write_correct :
 			archivo.write(dic_trave[m].date_of_birth + ",")
 			archivo.write(dic_trave[m].country + ",")
 			archivo.write(dic_trave[m].gender + ",")
-			archivo.write(dic_trave[m].marital_status )
+			archivo.write(dic_trave[m].marital_status ) 
 
 		archivo.close()
 	def write_flight_co(self):

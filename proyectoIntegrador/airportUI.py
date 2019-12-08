@@ -4,15 +4,24 @@ from airportDP import*
 
 class User_op :
     def menu (self):
-        print ("choose the option of your choice \n\r\t1.- Generate a report\n\r\t2.-Add data\n\r\t3.-Chage data")
+        global flight
+        global traveller
+        global passenger
+        print ("choose an option: \n\r\t1.- Generate a report\n\r\t2.-Add data\n\r\t3.-Chage data")
         option=int(input())
-        if option ==1 :
-            # COLOca LA CLASE 
+        if option ==1:
+            Csv().csv_writer() 
             pass    
-        if option==2:
-            pass
+        elif option==2:
+            op=str(input(("1) flight data\n2) traveller data\n3) passenger data\nPlease choose the type of data you want to add: ")))
+            if op==1:
+                flight=Add_data().add_flight()
+            elif op==2:
+                traveller=Add_data().add_traveller()
+            elif op==3:
+                passenger=Add_data().add_passenger()
 
-        if option==3 :
+        elif option==3:
             print ("\n\r\t1.-Correct pilot data\n\r\t2.-Correcta attendant\n\r\t3.-Correct travellers data\n\r\t4.-Correct passengers data\n\r\t5.-Correct flights data") 
             op=int(input())
             if op ==1:
@@ -51,7 +60,7 @@ class User_op :
                 fligth_fr=ModificarDatos()
                 fligth_fr.modify_flight= (id_op,plate,seat,track_track,attendants_fligth,pilot_fligth,copilot)
 
-        if option == 4:
+        elif option == 4:
             archivo=open("data/attendants.csv", "w+")
             a=Options_to_modify()
             dic_modificado=a.modify_attendants_op()
@@ -71,6 +80,7 @@ class User_op :
                 archivo.write(dic_modificado[m].marital_status)
                 archivo.write("\n")
             archivo.close()
+            
             exit()
 
     def dateInfo(self):

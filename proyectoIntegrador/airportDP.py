@@ -122,6 +122,30 @@ class Catch_data:
 		return nPassenger
 
 
+class Add_data:
+	def __init__(self):
+		self.existent=AirportAD()
+		self.new=Catch_data()
+	
+	def add_passenger(self):
+		existent=self.existent.read_passengers_file()
+		new=self.new.new_passenger()
+		all_passengers=ChainMap(existent, new)
+		return all_passengers
+
+	def add_traveller(self):
+		existent=self.existent.read_travellers_file()
+		new=self.new.new_traveller()
+		all_travellers=ChainMap(existent, new)
+		return all_travellers
+
+	def add_flight(self):
+		existent=self.existent.read_flights_file()
+		new=self.new.new_flight()
+		all_flights=ChainMap(existent, new)
+		return all_flights
+
+
 #el nombre de la clase se da por convencion, ya que se considera util sabiendo que es la que se encargara de la escritura del reporte
 class Csv:
 	def csv_writer(self):

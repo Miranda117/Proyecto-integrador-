@@ -435,6 +435,7 @@ class Options_to_modify:
 		dic_modificado= correct_at.modify_attendants(passport_at,new_marital)
 		return dic_modificado
 	def modify_pilot_op(self):
+		global pilot_dic
 		passport=str(input("Enter the pilot's passport: "))
 		marital_status=str(input("Enter the new marital status: "))
 		correct= ModificarDatos ()
@@ -442,6 +443,7 @@ class Options_to_modify:
 		return pilot_dic
     
 	def modify_flight_op(self):
+		global dic_flight__
 		flight=str(input("Enter the passenger's flight: "))
 		passport_pass=str(input("Enter the passport: "))
 		seat=str(input("Enter the new seat"))
@@ -451,6 +453,7 @@ class Options_to_modify:
 		dic_flight__=passenger.modify_passenger_data(flight,passport_pass,seat,flight_class,location)
 		return dic_flight__
 	def modify_travellers_op(self):
+		global dic_trave
 		passport_tra=str(input("Enter the traveller's passport: "))
 		civil_tra=str (input("Enter the new civil status: "))
 		gender_tra=str (input("Enter the new gender: "))
@@ -462,6 +465,7 @@ class Options_to_modify:
 		return dic_trave
 
 	def modify_passenger_op(self):
+		global dic_passenger__
 		flight=str(input("Enter the passenger's flight: "))
 		passport_pass=str(input("Enter the passport: "))
 		seat=str(input("Enter the new seat"))
@@ -476,20 +480,68 @@ class Write_correct :
 		archivo=open("data/attendants_1.csv", "w+")
 		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
 		for m in dic_modificado.keys():
-			archivo.write(dic_modificado[m].passport )
-			archivo.write(",")
-			archivo.write(dic_modificado[m].forename )
-			archivo.write(",")
-			archivo.write(dic_modificado[m].surname)
-			archivo.write(",")
-			archivo.write(dic_modificado[m].date_of_birth)
-			archivo.write(",")
-			archivo.write(dic_modificado[m].country)
-			archivo.write(",")
-			archivo.write(dic_modificado[m].gender)
-			archivo.write(",")
-			archivo.write(dic_modificado[m].marital_status)
-			archivo.write("\n")
+			archivo.write(dic_modificado[m].passport + "," )
+			archivo.write(dic_modificado[m].forename + "," )
+			archivo.write(dic_modificado[m].surname +",")
+			archivo.write(dic_modificado[m].date_of_birth + ",")
+			archivo.write(dic_modificado[m].country + ",")
+			archivo.write(dic_modificado[m].gender + ",")
+			archivo.write(dic_modificado[m].marital_status )
+
 		archivo.close()
 	def write_passen_co(self):
-		pass 
+		archivo=open("data/passengers_1.csv", "w+")
+		archivo.write("flight,passport,class,seat,location\n")
+		for m in dic_passenger__.keys():
+			archivo.write(dic_passenger__[m].flight + "," )
+			archivo.write(dic_passenger__[m].passport + "," )
+			archivo.write(dic_passenger__[m].flight_class +",")
+			archivo.write(dic_passenger__[m].seat + ",")
+			archivo.write(dic_passenger__[m].location + ",")
+		archivo.close()
+	def write_pilot_co(self):
+		archivo=open("data/pilots_1.csv", "w+")
+		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
+		for m in pilot_dic.keys():
+			archivo.write(pilot_dic[m].passport + "," )
+			archivo.write(pilot_dic[m].forename + "," )
+			archivo.write(pilot_dic[m].surname +",")
+			archivo.write(pilot_dic[m].date_of_birth + ",")
+			archivo.write(pilot_dic[m].country + ",")
+			archivo.write(pilot_dic[m].gender + ",")
+			archivo.write(pilot_dic[m].marital_status )
+
+		archivo.close()
+	def write_travellers_co(self):
+		archivo=open("data/travellers_1.csv", "w+")
+		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
+		for m in dic_trave.keys():
+			archivo.write(dic_trave[m].passport + "," )
+			archivo.write(dic_trave[m].forename + "," )
+			archivo.write(dic_trave[m].surname +",")
+			archivo.write(dic_trave[m].date_of_birth + ",")
+			archivo.write(dic_trave[m].country + ",")
+			archivo.write(dic_trave[m].gender + ",")
+			archivo.write(dic_trave[m].marital_status )
+
+		archivo.close()
+	def write_flight_co(self):
+		archivo=open("data/flights.csv", "w+")
+		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
+		for m in dic_flight__.keys():
+			archivo.write("\n"+dic_flight__[m].id+ "," )
+			archivo.write(dic_flight__[m].plate + "," )
+			archivo.write(dic_flight__[m].origin +",")
+			archivo.write(dic_flight__[m].destiny + ",")
+			archivo.write(dic_flight__[m].departure + ",")
+			archivo.write(dic_flight__[m].arriving + ",")
+			archivo.write(dic_flight__[m].status + ",")
+			archivo.write(dic_flight__[m].departure_gate + ",")
+			archivo.write(dic_flight__[m].take_off_track + ",")
+			archivo.write(dic_flight__[m].arriving_gate + ",")
+			archivo.write(dic_flight__[m].landing_track + ",")
+			archivo.write(dic_flight__[m].pilot + ",")
+			archivo.write(dic_flight__[m].copilot + ",")
+			archivo.write(dic_flight__[m].attendants )
+		archivo.close()
+		

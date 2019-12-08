@@ -2,7 +2,7 @@
 from airportDP import Options_to_modify , Write_correct
 
 
-class User_op :
+class User_op : 
     def menu (self):
         print ("choose the option of your choice \n\r\t1.- Generate a report\n\r\t2.-Add data\n\r\t3.-Chage data\n\r\t4.-exit the program")
         option=int(input())
@@ -35,6 +35,18 @@ class User_op :
         elif option == 4:
             write_att= Write_correct()
             write_att.write_attendants()
+            print("Se estan guradando los datos ")
+            #a=Write_correct()
+            #a.write_flight_co()
+            print("Espere un momento")
+            #b=Write_correct()
+            #b.write_passen_co
+            print("Ya casi acabamos")
+            #c=Write_correct()
+            #c.write_pilot_co()
+            print("Terminamos")
+            #d=Write_correct()
+            #d.write_travellers_co
         else:
             pass
         return option

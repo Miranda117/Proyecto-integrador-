@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from airportDP import *
+from airportDP import*
 
 class User_op :
     def menu (self):

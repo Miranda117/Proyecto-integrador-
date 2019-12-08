@@ -3,7 +3,7 @@
 #los recursos en linea para acomodar los datos y posteriormente utilizar csv son buenas herramientas para casos como este.
 import csv
 from collections import ChainMap
-from airportUI import *
+from airportUI import*
 #Gran parte de la esstructura fue hecha en el salon de clases
 class Passengers:
 	def __init__(self, _flight, _passport, _flight_class, _seat, _location):#

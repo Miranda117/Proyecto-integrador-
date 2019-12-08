@@ -13,7 +13,7 @@ class User_op :
             Csv().csv_writer() 
             pass    
         elif option==2:
-            op=str(input(("1) flight data\n2) traveller data\n3) passenger data\nPlease choose the type of data you want to add: ")))
+            op=int(input(("1) flight data\n2) traveller data\n3) passenger data\nPlease choose the type of data you want to add: ")))
             if op==1:
                 id=str(input("Write id to add(AA###): "))
                 plate=str(input("Write plate to add: "))
@@ -31,6 +31,7 @@ class User_op :
                 attendants = str(input("Write attendants to add(AA####;AA####...): "))
                 flight = Add_data()
                 all_flights=Add_data().add_flight(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
+                print(all_flights)
 
             elif op==2:
                 
@@ -138,4 +139,3 @@ class Options_to_modify:
         pilot_dic=correct.modify_pilot_data(passport, marital_status) 
         return pilot_dic
  
-

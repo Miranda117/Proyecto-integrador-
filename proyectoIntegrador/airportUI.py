@@ -26,27 +26,38 @@ class User_op :
                 op_trave.modify_travellers_op()
             elif op==4:
                 op_passenger=Options_to_modify()
-                op_passenger.modify_passenger_op 
+                op_passenger.modify_passenger_op() 
                 
             elif op==5:
                 op_flight_=Options_to_modify()
-                op_flight_.modify_flight_op()
+                op_flight_.modify_flight_op()                                                                                                                                                                                                                                                                                                                                                                                                                           
 
         elif option == 4:
-            write_att= Write_correct()
-            write_att.write_attendants()
-            print("Se estan guradando los datos ")
-            #a=Write_correct()
-            #a.write_flight_co()
-            print("Espere un momento")
-            #b=Write_correct()
-            #b.write_passen_co
-            print("Ya casi acabamos")
-            #c=Write_correct()
-            #c.write_pilot_co()
-            print("Terminamos")
-            #d=Write_correct()
-            #d.write_travellers_co
+            print ("Before leaving you could remind the program, do you correct data? \n\r\t1.-yes\n\r\t2.-No ")
+            op_2 =int (input())
+            if op_2 ==1:
+                print ("what data you corrected \n\r\t1.-pilot data\n\r\t2.-attendant\n\r\t3.-travellers data\n\r\t4.-passengers data\n\r\t5.-flights data ")
+                option_3=int(input())
+                if option_3==1:
+                    c=Write_correct()
+                    c.write_pilot_co()
+
+                elif option_3==2:
+                    write_att= Write_correct()
+                    write_att.write_attendants()
+            
+                elif option_3==3:
+                    d=Write_correct()
+                    d.write_travellers_co()
+
+                elif option_3==4:
+                    b=Write_correct()
+                    b.write_passen_co()
+                elif option_3==5:
+                    a=Write_correct()
+                    a.write_flight_co()
+            elif op_2==2:
+                pass
         else:
             pass
         return option

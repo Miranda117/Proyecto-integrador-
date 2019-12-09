@@ -103,13 +103,21 @@ class User_op :
                     a=Write_correct()
                     a.write_flight_co()
             elif op_2==2:
-                Catch_data().WritePassenger(new_passenger)
-                Catch_data().WriteTraveller(new_traveller)
-                Catch_data().WriteFlight(new_flight)
-        else:
-            Catch_data().WritePassenger(new_passenger)
-            Catch_data().WriteTraveller(new_traveller)
-            Catch_data().WriteFlight(new_flight)
+                print("Did you add data?\n1.-yes\n2.-no\n ")
+                op=int(input("choose an option: "))
+                if op==1:
+                    print("select the type of data you added\n1.-new passenger\n2.-new traveller\n3.-new flight")
+                    opt=int(input("choose an option: "))
+                    if opt==1:
+                        Catch_data().WritePassenger(new_passenger)
+                    elif opt==2:
+                        Catch_data().WriteTraveller(new_traveller)
+                    elif opt==3:
+                        Catch_data().WriteFlight(new_flight)
+                elif op==2:
+                    print("...ending program...")
+
+
         return option
 
     

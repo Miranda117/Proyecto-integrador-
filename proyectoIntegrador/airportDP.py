@@ -551,7 +551,7 @@ class Options_to_modify:
 		dic_passenger__= passenger.modify_passenger_data(flight,passport_pass,seat,flight_class,location) 
 		return dic_passenger__
 
-class Write_correct : 
+class Write_correct: 
 	def write_attendants(self):
 		archivo=open("data/attendants.csv", "w+")
 		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")

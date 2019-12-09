@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from airportDP import Options_to_modify , Write_correct
+from airportDP import Options_to_modify , Write_correct, Add_data, Catch_data, Csv
+
 
 
 class User_op : 
@@ -7,10 +8,55 @@ class User_op :
         print ("choose the option of your choice \n\r\t1.- Generate a report\n\r\t2.-Add data\n\r\t3.-Chage data\n\r\t4.-exit the program")
         option=int(input())
         if option ==1 :
-            # COLOca LA CLASE 
-            pass    
+             Csv().csv_writer()
+
         elif option==2:
-            pass
+            print("choose the kind of data you want to add \n\r\t1.- Add flight\n\r\t2.- Add traveller\n\r\t3.-Add passenger\n")
+            op=int(input())
+            if op==1:
+                id=str(input("Write id to add(AA###): "))
+                plate=str(input("Write plate to add: "))
+                origin = str(input("Write origin to add(city or place - COUNTRY): "))
+                destiny = str(input("Write destiny to add(city or place - COUNTRY): "))
+                departure = str(input("Write departure to add(######_####_Continent/City): "))
+                arriving = str(input("Write arriving to add(######_####_Continent/City): "))
+                status = str(input("\nboarded\nboarding\nin transit\nlanded\nlanding\nwaiting\nWrite status to add: "))
+                departure_gate = str(input("Write departure gate to add(A# or A##): "))
+                take_off_track = str(input("Write take off track to add(#): "))
+                arriving_gate = str(input("Write arriving gate to add(A# or A##): "))
+                landing_track = str(input("Write landing track to add(#): "))
+                pilot = str(input("Write pilot to add(AA####): "))
+                copilot = str(input("Write copilot to add(AA####): "))
+                attendants = str(input("Write attendants to add(AA####;AA####...): "))
+                flight = Add_data()
+                all_flights=Add_data().add_flight(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
+                global new_flight
+                new_flight=Catch_data().document_flight(id, plate, origin, destiny, departure, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
+
+            elif op==2:
+                passport=str(input("Write passport to add(AA####): "))
+                forename = str(input("Write forename to add: "))
+                surname = str(input("Write surname to add: "))
+                date_of_birth = str(input("Write date of birth to add(YYMMDD): "))
+                country = str(input("Write country to add: "))
+                gender = str(input("Write gender to add(M ,F, NA): "))
+                marital_status = str(input("Write marital status to add(Single, Married, Widowed, Divorced): "))
+                traveller=Add_data()
+                all_travellers=traveller.add_traveller(passport, forename, surname, date_of_birth, country, gender, marital_status)
+                global new_traveller
+                new_traveller=Catch_data().document_traveller(passport, forename, surname, date_of_birth, country, gender, marital_status)
+
+            elif op==3:
+                flight=str(input("Write flight to add(AA###): "))
+                passport = str(input("Write passport to add(AA####): "))
+                flight_class = str(input("Write class to add: "))
+                seat = str(input("Write seat to add(##A): "))
+                location = str(input("Write location to add(check-in, security, boarded): "))
+                passenger=Add_data()
+                all_passengers=passenger.add_passenger(flight, passport, flight_class, seat, location)
+                global new_passenger
+                new_passenger=Catch_data().document_passenger(flight, passport, flight_class, seat, location)
+
 
         elif option==3 :
             print ("\n\r\t1.-Correct pilot data\n\r\t2.-Correcta attendant\n\r\t3.-Correct travellers data\n\r\t4.-Correct passengers data\n\r\t5.-Correct flights data") 
@@ -57,18 +103,14 @@ class User_op :
                     a=Write_correct()
                     a.write_flight_co()
             elif op_2==2:
-                pass
+                Catch_data().WritePassenger(new_passenger)
+                Catch_data().WriteTraveller(new_traveller)
+                Catch_data().WriteFlight(new_flight)
         else:
-            pass
+            Catch_data().WritePassenger(new_passenger)
+            Catch_data().WriteTraveller(new_traveller)
+            Catch_data().WriteFlight(new_flight)
         return option
 
-    def dateInfo(self):
-        print("ingrese fecha para generar reporte (YYMMDD): ")
-        yymmdDate = int(input())
-        return yymmdDate
+    
 
-    def timeInfo(self):
-        print("Ingrese hora para generar reporte (HHMM): ")
-        hhmmTime = int(input())
-        return hhmmTime
- 

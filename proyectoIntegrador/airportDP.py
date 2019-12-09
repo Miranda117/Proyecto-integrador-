@@ -1,6 +1,6 @@
 import csv
-from airportUI import *
 from collections import ChainMap
+
 class Passengers:
 	def __init__(self, _flight, _passport, _flight_class, _seat, _location):
 		self.flight = _flight
@@ -54,11 +54,15 @@ class Travellers(Pilot):#
 	pass#
 
 class Catch_data:
+	#flight tools
 	def document_flight(self, id, plate, origin, destiny, departure, take_off_track, arriving_gate, lading_track, pilot, copilot, attendants):
 		documented_info=[id, plate, origin, destiny, departure, take_off_track, arriving_gate, lading_track, pilot, copilot, attendants]
-		chain_info=",".join(documented_info)
+		chain_flight_info=",".join(documented_info)
+		return chain_flight_info
+
+	def WriteFlight(self, new_flight):
 		flight_file=open("data/flights.csv", "a+")
-		flight_file.write(chain_info)
+		flight_file.write(new_flight)
 		flight_file.close()
 
 	def new_flight(self,id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants):
@@ -66,12 +70,15 @@ class Catch_data:
 		n_flight= Flights(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
 		nFlight[id+plate]=n_flight
 		return nFlight
-
+	#traveller tools
 	def document_traveller(self,passport, forename, surname, date_of_birth, country, gender, marital_status):
 		documented_info=[passport, forename, surname, date_of_birth, country, gender, marital_status]
-		chain_info=",".join(documented_info)
+		chain_traveller_info=",".join(documented_info)
+		return chain_traveller_info
+
+	def WriteTraveller(self, new_traveller):
 		traveller_file=open("data/travellers.csv", "a+")
-		traveller_file.write(chain_info)
+		traveller_file.write(new_traveller)
 		traveller_file.close()
 
 	def new_traveller(self,passport, forename, surname, date_of_birth, country, gender, marital_status):
@@ -79,12 +86,15 @@ class Catch_data:
 		n_traveller=Travellers(passport, forename, surname, date_of_birth, country, gender, marital_status)
 		nTraveller[passport]=n_traveller
 		return nTraveller
-
+	#Passenger tools
 	def document_passenger(self,flight, passport, flight_class, seat, location):
 		documented_info=[flight, passport, flight_class, seat, location]
-		chain_info=",".join(documented_info)
-		passenger_file=open("data/passengers.csv","a+")
-		passenger_file.write(chain_info)
+		chain_passenger_info=",".join(documented_info)
+		return chain_passenger_info
+
+	def WritePassenger(self,new_passenger):
+		passenger_file=open("data/passengers.csv", "a+")
+		passenger_file.write(new_passenger)
 		passenger_file.close()
 
 	def new_passenger(self,flight, passport, flight_class, seat, location):
@@ -107,30 +117,43 @@ class Add_data:
 		self.new=Catch_data()
 	
 	def add_passenger(self,flight, passport, flight_class, seat, location):
+		global all_passengers
 		existent=self.existent.read_passengers_file()
 		new=self.new.new_passenger(flight, passport, flight_class, seat, location)
 		all_passengers=ChainMap(existent, new)
 		return all_passengers
 
 	def add_traveller(self,passport, forename, surname, date_of_birth, country, gender, marital_status):
+		global all_travellers
 		existent=self.existent.read_travellers_file()
 		new=self.new.new_traveller(passport, forename, surname, date_of_birth, country, gender, marital_status)
 		all_travellers=ChainMap(existent, new)
 		return all_travellers
 
 	def add_flight(self,id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants):
+		global all_flights
 		existent=self.existent.read_flights_file()
 		new=self.new.new_flight(id, plate, origin, destiny, departure, arriving, status, departure_gate, take_off_track, arriving_gate, landing_track, pilot, copilot, attendants)
 		all_flights=ChainMap(existent, new)
 		return all_flights
 
+class Date_options:
+	def dateInfo(self):
+		print("ingrese fecha para generar reporte (YYMMDD): ")
+		yymmdDate = int(input())
+		return yymmdDate
+
+	def timeInfo(self):
+		print("Ingrese hora para generar reporte (HHMM): ")
+		hhmmTime = int(input())
+		return hhmmTime
 
 class Csv:
 	def csv_writer(self):
 		global yymmdDate
 		global hhmmTime
-		yymmdDate = None####### Meter esto como parametros 
-		hhmmTime = None ########
+		yymmdDate = Date_options().dateInfo()####### Meter esto como parametros 
+		hhmmTime =  Date_options().timeInfo()########
 		file = open("statistics.csv", "w+")
 		file.write("date, time, # empty tracks, # busy tracks, # passengers in check-in, # passengers in security, # passengers boarded, # flights landed, # flights departured, available gates, occupied gates")
 		file.write("\n")
@@ -155,6 +178,7 @@ class Csv:
 		lst[1][9] = Gates_check().cAvailable_list()#
 		lst[1][10] = Gates_check().cBusy_list()#
 
+		print(lst)
 		csv.writer(file).writerows(lst)#
 		file.close()#
 
@@ -529,7 +553,7 @@ class Options_to_modify:
 
 class Write_correct : 
 	def write_attendants(self):
-		archivo=open("data/attendants_1.csv", "w+")
+		archivo=open("data/attendants.csv", "w+")
 		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
 		for m in dic_modificado.keys():
 			archivo.write(dic_modificado[m].passport + "," )
@@ -542,7 +566,7 @@ class Write_correct :
 
 		archivo.close()
 	def write_passen_co(self):
-		archivo=open("data/passengers_1.csv", "w+")
+		archivo=open("data/passengers.csv", "w+")
 		archivo.write("flight,passport,class,seat,location\n")
 		for m in dic_passenger__.keys():
 			archivo.write(dic_passenger__[m].flight + "," )
@@ -552,7 +576,7 @@ class Write_correct :
 			archivo.write(dic_passenger__[m].location + ",")
 		archivo.close()
 	def write_pilot_co(self):
-		archivo=open("data/pilots_1.csv", "w+")
+		archivo=open("data/pilots.csv", "w+")
 		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
 		for m in pilot_dic.keys():
 			archivo.write(pilot_dic[m].passport + "," )
@@ -565,7 +589,7 @@ class Write_correct :
 
 		archivo.close()
 	def write_travellers_co(self):
-		archivo=open("data/travellers_1.csv", "w+")
+		archivo=open("data/travellers.csv", "w+")
 		archivo.write("passport,forename,surname,date of birth, country, gender, marital status\n")
 		for m in dic_trave.keys():
 			archivo.write(dic_trave[m].passport + "," )
@@ -596,4 +620,4 @@ class Write_correct :
 			archivo.write(dic_flight__[m].copilot + ",")
 			archivo.write(dic_flight__[m].attendants )
 		archivo.close()
-		
+
